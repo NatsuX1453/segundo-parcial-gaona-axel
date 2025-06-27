@@ -1,10 +1,10 @@
-import Character from '../models/character.model.js';
+import Character from '../models/movie.model.js';
 
 export const CreateMovie = async (req, res) => {
-	const { title, director, duration, genre, description } = req.body;
+	const { tittle, director, duration, genre, description } = req.body;
 
 	try {
-		if (title === undefined)
+		if (tittle === undefined)
 			return res.status(400).json({ message: 'El titulo no puede estar vacio' });
 		if (director === undefined)
 			return res.status(400).json({ message: 'El director no puede estar vacio' });
@@ -30,7 +30,7 @@ export const CreateMovie = async (req, res) => {
 		if (movieUnico !== null)
 			return res.status(400).json({ message: 'Esa pelicula ya esta almacenada' });
 
-		const character = await Character.create({
+		const movie = await Movie.create({
 			tittle,
 			director,
 			duration,
@@ -38,7 +38,7 @@ export const CreateMovie = async (req, res) => {
 			description,
 		});
 
-		res.status(201).json({ message: 'Pelicula agregada exitosamente', character });
+		res.status(201).json({ message: 'Pelicula agregada exitosamente', movie });
 	} catch (error) {
 		res.status(500).json({ message: error.message });
 	}
